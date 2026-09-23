@@ -1,0 +1,20 @@
+[
+    {
+        "id": 0,
+        "user": "Admin",
+        "pwd": "contrasena123",
+        "isAdmin": True,
+        "correo": "realadmin@gmail.com"
+        "multa": 0,
+        "libros": []
+    },
+    {
+        "id": 1
+        "user": "Admin",
+        "pwd": "12345",
+        "isAdmin": False,
+        "correo": "correon@gmail.com",
+        "multa": 0,
+        "libros": []
+    }
+]
