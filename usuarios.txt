@@ -3,16 +3,16 @@
         "id": 0,
         "user": "Admin",
         "pwd": "contrasena123",
-        "isAdmin": True,
-        "correo": "realadmin@gmail.com"
+        "isAdmin": true,
+        "correo": "realadmin@gmail.com",
         "multa": 0,
         "libros": []
     },
     {
-        "id": 1
-        "user": "Admin",
+        "id": 1,
+        "user": "jerry123",
         "pwd": "12345",
-        "isAdmin": False,
+        "isAdmin": false,
         "correo": "correon@gmail.com",
         "multa": 0,
         "libros": []

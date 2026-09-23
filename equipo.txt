@@ -4,13 +4,17 @@
         "nombre": "Amplificador LM386",
         "estado": 5,
         "descripcion": "Amplificador de audio LM386 en formato DIP-8, Texas Instruments",
-        "categoria": "amplificadores"
+        "categoria": "amplificadores",
+        "solicitudes": [],
+        "poseedor": 0
     },
     {
         "id": 1,
         "nombre": "Cable HDMI",
         "estado": 3,
         "descripcion": "Cable HDMI Marca generica, daño en una de las puntas.",
-        "categoria": "cables"
+        "categoria": "cables",
+        "solicitudes": [],
+        "poseedor": 0
     }
 ]
