@@ -1,11 +1,7 @@
 # Sistema gestion de inventario (lab de Electronica)
 en este trabajo realizamos en Python un sistema para el laboratorio de Electronica
 
-
-
-
 ## Proceso de realización del código
-
 Realizar este código fue un proceso un poco complejo, principalmente porque fue necesario entender cómo funcionaban las diferentes partes del programa y cómo se conectaban entre ellas. Al principio no fue tan fácil saber qué debía hacer cada función, ya que el código utiliza un módulo llamado `proc`, en el cual se encuentran diferentes clases y funciones que permiten manejar a los estudiantes, encargados, equipos y solicitudes.
 
 Primero se realizó la parte del estudiante. En esta parte se crea un estudiante utilizando un usuario y una contraseña. Después se revisa si ocurrió algún error al iniciar sesión. Si todo está correcto, el programa muestra un mensaje y también revisa si el estudiante tiene permisos de administrador. Esto fue importante para entender que no todos los usuarios tienen las mismas funciones dentro del programa.
@@ -20,15 +16,18 @@ Una de las partes más complicadas fue entender cómo se comunicaba este código
 
 En general, hacer este código ayudó a entender mejor cómo se pueden organizar diferentes acciones dentro de un programa. También permitió practicar el uso de clases, condiciones, funciones y variables. Aunque al principio fue complicado entender cómo funcionaba todo, al ir revisando cada parte por separado fue más fácil comprender el proceso. Una de las cosas que más aprendí fue que no es necesario intentar entender todo el código de una sola vez, sino que es mejor dividirlo en partes pequeñas y revisar qué hace cada una.
 
-
+## Iniciar el código
+```
+python main.py
+```
+Se requieren tanto `equipo.txt` como `usuarios.txt` para que el programa funcione.
 
 ## UML
+![App Screenshot](images/diagramme.jpeg)
 
-![App Screenshot](https://dummyimage.com/468x300?text=App+Screenshot+Here)
+## Miembros
 
-## Authors
-
-- Nico Luengas
+- Nicolas Luengas
 - Jonathan Archila
-- Andres Casallas
+- Andrés Casallas
 - Alejandro campuzano
