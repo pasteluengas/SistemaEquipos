@@ -82,7 +82,7 @@ class Usuario():
     def __init__(self, user, pwd):
         init_db()
         self.error = 0
-
+        self.isAdmin = False
         id = getIdByUser(user)
         if id == -1:
             self.error = -1
@@ -97,6 +97,8 @@ class Usuario():
         self.isAdmin = usuarios[id]["isAdmin"]
         self.multa = usuarios[id]["multa"]
         self.libros = usuarios[id]["libros"]
+        self.isAdmin = isAdmin(id)
+        print(self.isAdmin)
 
     '''
         TIPOS DE CONSULTA
