@@ -1,4 +1,8 @@
+# TODO CONVERTIR A SQLLITE3
+
 import json
+import sqlite3
+
 
 usuarios = []
 equipo = []
@@ -10,6 +14,10 @@ INICIALIZA BASES DE DATOS, EXTRAE EL CONTENIDO DE LOS TXT Y LO GUARDA EN LISTAS
 def init_db():
     global usuarios
     global equipo
+
+    con = sqlite3.connect("database.db")
+    dbcur = con.cursor()
+    
 
     with open("usuarios.txt", "r", encoding="utf-8") as archivo:
         usuarios = json.load(archivo)
