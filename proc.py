@@ -4,56 +4,76 @@ import json
 import sqlite3
 
 
-usuarios = []
-equipo = []
+con = sqlite3.connect("data.db")
+dbcur = con.cursor()
+
+def getFetch(strreq, mode):
+    res = dbcur.execute(strreq)
+    if mode == "ALL":
+        return res.fetchall()
+    if mode == "ONE":
+        return res.fetchone()
+
 
 #FUNCIONES GENERALES PUEDEN EJECUTARSE SIN SER USUARIO
 '''
-INICIALIZA BASES DE DATOS, EXTRAE EL CONTENIDO DE LOS TXT Y LO GUARDA EN LISTAS
+INICIALIZA BASES DE DATOS (lo hacia)
 '''
 def init_db():
-    global usuarios
-    global equipo
-
-    con = sqlite3.connect("database.db")
-    dbcur = con.cursor()
-    
-
-    with open("usuarios.txt", "r", encoding="utf-8") as archivo:
-        usuarios = json.load(archivo)
-
-    with open("equipo.txt", "r", encoding="utf-8") as archivo:
-        equipo = json.load(archivo)
+    ...
 
 '''
+
 OBTENER INFO DE USUARIO POR SU ID
 DEVUELVE UN DICCIONARIO CON INFO [OMITIENDO INFO SENSIBLE COMO CONTRASENAS Y CORREOS] EN CASO DE EXITO
 DE LO CONTRARIO DEVUELVE -1
 '''
 def getUser(id):
-    try:
-        toRet = {}
-        toRet["id"] = usuarios[id]["id"]
-        toRet["user"] = usuarios[id]["user"]
-        toRet["isAdmin"] = usuarios[id]["isAdmin"]
-    except:
-        toRet = -1
+    global con
+    global dbcur
+
+    request = f"SELECT * FROM usuarios WHERE id = {id}"
+    result = getFetch(request, "ONE")
+    
+
+    if result is None:
+        return -1
+
+    toRet = {}
+    toRet["id"] = result[0]
+    toRet["user"] = result[1]
+    if result[3] == 0:    
+        toRet["isAdmin"] = False
+    if result[3] == 1:
+        toRet["isAdmin"] = True
+
     return toRet
+
 
 '''
 OBTENER INFO DE EQUIPO POR SU ID
-DEVUELVE UN DICCIONARIO CON INFO [OMITIENDO INFO SENSIBLE COMO POSEEDOR Y SOLICITUDES] EN CASO DE EXITO
+DEVUELVE UN DICCIONARIO CON INFO [OMITIENDO INFO SENSIBLE COMO SOLICITUDES] EN CASO DE EXITO
 DE LO CONTRARIO DEVUELVE -1
 '''
 def getEquipo(id):
-    try:
-        toRet = {}
-        toRet["id"] = equipo[id]["id"]
-        toRet["nombre"] = equipo[id]["nombre"]
-        toRet["descripcion"] = equipo[id]["descripcion"]
-    except:
-        toRet = -1
+    global con
+    global dbcur
+
+    request = f"SELECT * FROM equipo WHERE id = {id}"
+    result = getFetch(request, "ONE")
+    
+
+    if result is None:
+        return -1
+
+    toRet = {}
+    toRet["id"] = result[0]
+    toRet["nombre"] = result[1]
+    toRet["descripcion"] = result[3]
+    toRet["poseedor"] = result[5]
+
     return toRet
+    
 
 
 '''
@@ -62,10 +82,17 @@ SI ENCUENTRA EL USUARIO DEVUELVE EL ID
 SI NO LO ENCUENTRA DEVUELVE -1
 '''
 def getIdByUser(user):
-    for i in range(0, len(usuarios)):
-        if usuarios[i]["user"] == user:
-            return usuarios[i]["id"]
-    return -1
+    global con
+    global dbcur
+    
+    request = f"SELECT * FROM usuarios WHERE user = '{user}'"
+    result = getFetch(request, "ONE")
+
+    if result is None:
+        return -1
+
+    return result[0]
+
 
 '''
 REVISA SI EL USUARIO ES ADMIN
@@ -73,10 +100,18 @@ SI ES ADMIN DEVUELVE TRUE
 SINO FALSE
 '''
 def isAdmin(id):
-    if usuarios[id]["isAdmin"] == True:
+    global con
+    global dbcur
+    
+    request = f"SELECT * FROM usuarios WHERE id = '{id}'"
+    result = getFetch(request, "ONE")
+
+    if result == None:
+        return -1
+    
+    if result[3] == 1:
         return True
     return False
-
 
 
 '''
@@ -96,18 +131,20 @@ class Usuario():
             self.error = -1
             return
 
-        if usuarios[id]["pwd"] != pwd:
+        global con
+        global dbcur
+        
+        request = f"SELECT * FROM usuarios WHERE user = '{user}' AND pwd = '{pwd}'"
+        result = getFetch(request, "ONE")
+
+        if result is None:
             self.error = -2
             return
 
-        self.id = usuarios[id]["id"]
-        self.usuario = usuarios[id]["user"]
-        self.isAdmin = usuarios[id]["isAdmin"]
-        self.multa = usuarios[id]["multa"]
-        self.libros = usuarios[id]["libros"]
+        self.id = result[0]
+        self.usuario = result[1]
         self.isAdmin = isAdmin(id)
-        print(self.isAdmin)
-
+        
     '''
         TIPOS DE CONSULTA
         0 = BUSCAR POR NOMBRE
@@ -117,26 +154,38 @@ class Usuario():
         DICCIONARIO DEL EQUIPO EN CASO DE ENCONTRARLO
         -1 EN CASO DE ERROR
     '''
-    def consultar(self, consulta, tipo_consulta):
-        for eq in equipo:
-            if tipo_consulta == 0 and eq["nombre"] == consulta:
-                return eq
-            if tipo_consulta == 1 and eq["categoria"] == consulta:
-                return eq
-        return -1
+    def consultar(self, req, tipo_consulta):
+        global equipo
+        #print(equipo)
+        if tipo_consulta == 0:
+            consulta = "nombre"
+        if tipo_consulta == 1:
+            consulta = "categoria"
+
+        global con
+        global dbcur
+        request = f"SELECT * FROM equipo WHERE {consulta} = '{req}'"
+        result = getFetch(request, "ONE")
+
+        if result is None:
+            return -1
+
+        toRet = {}
+        toRet["id"] = result[0]
+        toRet["nombre"] = result[1]
+        toRet["estado"] = result[2]
+        toRet["descripcion"] = result[3]
+        toRet["categoria"] = result[4]
+        toRet["poseedor"] = result[5]
+
+        return toRet
+
 
     '''
-    GUARDA EL CONTENIDO DE LAS LISTAS DE NUEVO EN EL TXT
+    GUARDA EL CONTENIDO DE LAS LISTAS DE NUEVO EN EL TXT (ya no lo hace)
     '''
     def actualizar(self):
-        global usuarios
-        global equipo
-        with open("equipo.txt", "w", encoding="utf-8") as archivo:
-            json.dump(equipo, archivo, ensure_ascii=False, indent=4)
-
-
-        with open("usuarios.txt", "w", encoding="utf-8") as archivo:
-            json.dump(usuarios, archivo, ensure_ascii=False, indent=4)
+        ...
 
     
 class Estudiante(Usuario):
@@ -154,14 +203,25 @@ class Estudiante(Usuario):
     -2: EL ESTUDIANTE YA ESTA EN LA LISTA DE SOLICITUDES
     '''
     def solicitar(self, id):
-        if equipo[id]["poseedor"] != 0:
+        if getEquipo(id)["poseedor"] != 0:
             return -1
+
+        global con
+        global dbcur
         
-        if self.id in equipo[id]["solicitudes"]:
+        request = f"SELECT * FROM solicitudes WHERE id_equipo = {id} AND id_usuario = {self.id}"
+        result = getFetch(request, "ONE")
+        
+        if result is not None:
             return -2
         
-        equipo[id]["solicitudes"].append(self.id)
-        self.actualizar()
+        #equipo[id]["solicitudes"].append(self.id)
+        request = f"""
+            INSERT INTO solicitudes (id_usuario, id_equipo) VALUES ({self.id}, {id})
+        """
+        dbcur.execute(request)
+        con.commit()
+
         return 0
 
 class Encargado(Usuario):
@@ -176,9 +236,22 @@ class Encargado(Usuario):
     '''
     def revisar_solicitudes(self):
         toRet = {}
+        '''
         for eq in equipo:
             if eq["solicitudes"]:
                 toRet[eq["id"]] = eq["solicitudes"]
+        '''
+        global con
+        global dbcur
+        request = f"SELECT * FROM solicitudes"
+        result = getFetch(request, "ALL")
+
+        for eq in result:
+            toRet[eq[2]] = []
+
+        for eq in result:
+            toRet[eq[2]].append(eq[1]) 
+
         return toRet
 
     '''
@@ -186,22 +259,44 @@ class Encargado(Usuario):
     DEVUELVE 0 EN CASO DE EXITO Y -1 EN CASO DE NO EXITO
     '''
     def aceptar_solicitud(self, id_equipo, id_usuario):
-        if id_usuario not in equipo[id_equipo]["solicitudes"]:
+        global con
+        global dbcur
+
+        request = f"SELECT * FROM solicitudes WHERE id_equipo = {id_equipo} AND id_usuario = {id_usuario}"
+        result = getFetch(request, "ONE")
+
+        if request is None:
             return -1
-        equipo[id_equipo]["solicitudes"].remove(id_usuario)
-        equipo[id_equipo]["poseedor"] = id_usuario
-        self.actualizar()
+        
+        request = f"DELETE FROM solicitudes WHERE id_usuario = {id_usuario} AND id_equipo = {id_equipo}"
+        dbcur.execute(request)
+        con.commit()
+
+        request = f"UPDATE equipo SET poseedor = {id_usuario} WHERE id = {id_equipo}"
+        dbcur.execute(request)
+        con.commit()
+        
         return 0
+
+
     
     '''
     CONVIERTE EL POSEEDOR DEL EQUIPO A 0 (QUE ES EL ID DEL ADMIN)
     EN CASO DE EXITO DEVUELVE 0 Y -1 SINO
     '''
     def devolver_equipo(self, id_equipo):
-        if equipo[id_equipo]["poseedor"] == 0:
-            return -1
-        equipo[id_equipo]["poseedor"] = 0
-        self.actualizar()
-        return 0
+        global con
+        global dbcur
         
+        request = f"SELECT * FROM equipo WHERE id = {id_equipo}"
+        result = getFetch(request, "ONE")
+
+        if result[5] == 0:
+            return -1
+
+        request = f"UPDATE equipo SET poseedor = 0 WHERE id = {id_equipo}"
+        dbcur.execute(request)
+        con.commit()
+
+        return 0
 

@@ -78,7 +78,9 @@ def main():
                         eq_info = getEquipo(eq_id)
                         nom = eq_info["nombre"] if eq_info != -1 else "Desconocido"
                         print("Equipo:", nom, "(ID:", str(eq_id) + ")")
-                        print("IDs Usuarios Solicitantes:", ", ".join(map(str, reqs)))
+                        print("Usuarios Solicitantes:")
+                        for req in reqs:
+                            print("     Usuario: ", getUser(req)["user"], "(ID: ", str(req), ")")
                         print("-" * 30)
                     
                     print("\n¿Que desea hacer?")
