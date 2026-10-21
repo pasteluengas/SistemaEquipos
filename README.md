@@ -1,26 +1,45 @@
 # Sistema gestion de inventario (lab de Electronica)
 en este trabajo realizamos en Python un sistema para el laboratorio de Electronica
 
-## Proceso de realización del código
-Realizar este código fue un proceso un poco complejo, principalmente porque fue necesario entender cómo funcionaban las diferentes partes del programa y cómo se conectaban entre ellas. Al principio no fue tan fácil saber qué debía hacer cada función, ya que el código utiliza un módulo llamado `proc`, en el cual se encuentran diferentes clases y funciones que permiten manejar a los estudiantes, encargados, equipos y solicitudes.
+El desarrollo de este código fue un proceso que requirió comprender cómo funcionaban las diferentes partes del programa y cómo se conectaban con el módulo proc, encargado de manejar estudiantes, encargados, equipos y solicitudes.
 
-Primero se realizó la parte del estudiante. En esta parte se crea un estudiante utilizando un usuario y una contraseña. Después se revisa si ocurrió algún error al iniciar sesión. Si todo está correcto, el programa muestra un mensaje y también revisa si el estudiante tiene permisos de administrador. Esto fue importante para entender que no todos los usuarios tienen las mismas funciones dentro del programa.
+Primero, se implementó la parte del estudiante, donde se inicia sesión con un usuario y contraseña, se verifican posibles errores y se comprueba si tiene permisos de administrador.
 
-Después se hizo la parte de las consultas. El estudiante puede buscar un equipo, en este caso unos amplificadores, y recibir la información del equipo. Luego, utilizando el `id` del equipo encontrado, se puede hacer una solicitud. Esta parte fue algo complicada porque había que tener en cuenta diferentes resultados: si la solicitud se hizo correctamente, si no se puede solicitar el equipo o si el usuario ya había hecho una solicitud anteriormente. Para esto se utilizaron condiciones `if` que permiten mostrar un mensaje diferente dependiendo de lo que ocurra.
+Después, se desarrollaron las consultas de equipos y la creación de solicitudes. El estudiante puede buscar un equipo, como un amplificador, y solicitarlo mediante su id. Se utilizaron condiciones if para manejar los diferentes resultados, como una solicitud exitosa, un equipo no disponible o una solicitud previa.
 
-También se realizó la parte del encargado. Esta funciona de una manera parecida, pero el encargado tiene otras opciones. Puede consultar equipos, revisar las solicitudes y aceptar una solicitud. Además, puede registrar la devolución de un equipo. Esta parte fue un poco más difícil porque había que entender el orden en el que se realizan las acciones. Por ejemplo, primero se debe aceptar una solicitud y después se puede realizar la devolución del equipo.
+Luego, se implementó la parte del encargado, que permite consultar equipos, revisar y aceptar solicitudes, y registrar devoluciones. En esta sección fue importante respetar el orden de las acciones, ya que primero se debe aceptar una solicitud para después registrar la devolución.
 
-Al final del programa se utiliza `proc.init_db()` para iniciar la base de datos y después se le pregunta al usuario si quiere entrar como estudiante o como encargado. Dependiendo de lo que escriba, se ejecuta una de las dos funciones principales.
+Finalmente, se utiliza proc.init_db() para iniciar la base de datos y se pregunta al usuario si desea ingresar como estudiante o encargado, ejecutando la función correspondiente.
 
-Una de las partes más complicadas fue entender cómo se comunicaba este código con el módulo `proc`, porque muchas de las funciones utilizadas en el programa no están escritas directamente aquí. Por ejemplo, funciones como `consultar()`, `solicitar()`, `revisar_solicitudes()` y `aceptar_solicitud()` dependen de lo que está programado dentro de ese módulo. Por eso fue necesario revisar y entender qué información recibía cada función y qué resultado devolvía.
-
-En general, hacer este código ayudó a entender mejor cómo se pueden organizar diferentes acciones dentro de un programa. También permitió practicar el uso de clases, condiciones, funciones y variables. Aunque al principio fue complicado entender cómo funcionaba todo, al ir revisando cada parte por separado fue más fácil comprender el proceso. Una de las cosas que más aprendí fue que no es necesario intentar entender todo el código de una sola vez, sino que es mejor dividirlo en partes pequeñas y revisar qué hace cada una.
-
-## Iniciar el código
+Una de las principales dificultades fue comprender la comunicación con el módulo proc, ya que funciones como consultar(), solicitar(), revisar_solicitudes() y aceptar_solicitud() están definidas allí. Este proceso permitió reforzar conocimientos sobre clases, funciones, variables y condicionales, además de aprender a dividir un programa en partes pequeñas para facilitar su comprensión.
+## Uso del codigo 
+1. EJECUTAR 
 ```
 python main.py
 ```
-Se requieren tanto `equipo.txt` como `usuarios.txt` para que el programa funcione.
+Se requieren el archivo data.db para que el programa funcione.
+
+2. USUARIOS Y CONTRASEÑAS 
+
+Usuarios y contraseñas que se pueden usar para iniciar sesión
+
+| Usuario | Contraseña | 
+| --- | --- | 
+|  admin  |  contrasena123 | 
+|  usuario1 |  contrasena123 |
+|  jaime777 |  elunicoconcontraseñasegura!123!123 |
+
+3. EQUIPOS
+
+Equipo que se puede consultar y solicitar
+
+| Nombre | Descripcion |
+| --- | --- | 
+|  Amplificador LM386  | Amplificadores |
+| Alcohol isopropilico | Limpieza |
+|  Calculadora Progamable texas | Calculadoras |
+|  Resistencia 1 ohm | Electronica |
+|  Cable HDMI | Cables |
 
 ## UML
 ![App Screenshot](images/diagramme.jpeg)
