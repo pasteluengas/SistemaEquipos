@@ -48,5 +48,4 @@ Equipo que se puede consultar y solicitar
 
 - Nicolas Luengas
 - Jonathan Archila
-- Andrés Casallas
 - Alejandro campuzano
