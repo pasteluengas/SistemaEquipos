@@ -13,13 +13,13 @@ Finalmente, se utiliza proc.init_db() para iniciar la base de datos y se pregunt
 
 Una de las principales dificultades fue comprender la comunicación con el módulo proc, ya que funciones como consultar(), solicitar(), revisar_solicitudes() y aceptar_solicitud() están definidas allí. Este proceso permitió reforzar conocimientos sobre clases, funciones, variables y condicionales, además de aprender a dividir un programa en partes pequeñas para facilitar su comprensión.
 ## Uso del codigo 
-1. EJECUTAR 
+### 1. EJECUTAR 
 ```
 python main.py
 ```
 Se requieren el archivo data.db para que el programa funcione.
 
-2. USUARIOS Y CONTRASEÑAS 
+### 2. USUARIOS Y CONTRASEÑAS 
 
 Usuarios y contraseñas que se pueden usar para iniciar sesión
 
@@ -29,7 +29,7 @@ Usuarios y contraseñas que se pueden usar para iniciar sesión
 |  usuario1 |  contrasena123 |
 |  jaime777 |  elunicoconcontraseñasegura!123!123 |
 
-3. EQUIPOS
+### 3. EQUIPOS
 
 Equipo que se puede consultar y solicitar
 
