@@ -35,11 +35,11 @@ Equipo que se puede consultar y solicitar
 
 | Nombre | Descripcion |
 | --- | --- | 
-|  Amplificador LM386  | Amplificadores |
-| Alcohol isopropilico | Limpieza |
-|  Calculadora Progamable texas | Calculadoras |
-|  Resistencia 1 ohm | Electronica |
-|  Cable HDMI | Cables |
+|  Amplificador LM386  | amplificadores |
+| Alcohol isopropilico | limpieza |
+|  Calculadora Progamable texas | calculadoras |
+|  Resistencia 1 ohm | electronica |
+|  Cable HDMI | cables |
 
 ## UML
 ![App Screenshot](images/diagramme.jpeg)
