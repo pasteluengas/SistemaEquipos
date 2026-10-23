@@ -45,7 +45,7 @@ Equipo que se puede consultar y solicitar
 ![App Screenshot](images/diagramme.jpeg)
 
 ## Diagrama de casos
-![App Screenshot](images/diagramme.png)
+![App Screenshot](images/casos.png)
 
 ## Miembros
 
