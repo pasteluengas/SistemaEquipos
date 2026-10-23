@@ -44,6 +44,9 @@ Equipo que se puede consultar y solicitar
 ## UML
 ![App Screenshot](images/diagramme.jpeg)
 
+## Diagrama de casos
+![App Screenshot](images/diagramme.png)
+
 ## Miembros
 
 - Nicolas Luengas
