@@ -291,6 +291,9 @@ class Encargado(Usuario):
         request = f"SELECT * FROM equipo WHERE id = {id_equipo}"
         result = getFetch(request, "ONE")
 
+        if result is None:
+            return -1
+
         if result[5] == 0:
             return -1
 
