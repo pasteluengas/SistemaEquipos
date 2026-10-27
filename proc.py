@@ -303,3 +303,14 @@ class Encargado(Usuario):
 
         return 0
 
+    def anadir_equipo(self, nombre, descripcion, estado, categoria):
+        global con
+        global dbcur
+
+        request = f"""
+                    INSERT INTO equipo (nombre, estado, descripcion, categoria, poseedor) VALUES ('{nombre}', {estado}, '{descripcion}', '{categoria}', 0)
+                """
+        dbcur.execute(request)
+        con.commit()
+        return 0
+        
