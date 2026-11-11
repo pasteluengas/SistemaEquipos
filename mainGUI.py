@@ -1,5 +1,5 @@
 import random
-jaja = ['"esp32 es solo una moda pasajera, en 2018 todos volveran a usar arduino" - Mahatma Gandhi', '"El logo de Java es un cafe porque a los programadores de Java no les pagan las horas nocturnas" - Jorge Eliecer Gaitán', '"Reconocida empresa del sector solicita programador senior de entre 13 y 15 años" - José Asunción Silva', '"Ya funciona Fortnite en Linux? Tengo un sueño" - Martin Luther King']
+jaja = ['"Reconocida empresa del sector solicita programador senior de entre 13 y 15 años" - José Asunción Silva', '"Ya funciona Fortnite en Linux?" - Martin Luther King']
 
 import sys
 from proc import *
