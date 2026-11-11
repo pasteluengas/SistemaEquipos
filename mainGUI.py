@@ -1,5 +1,5 @@
 import random
-jaja = ['"Reconocida empresa del sector solicita programador senior de entre 13 y 15 años" - José Asunción Silva', '"Ya funciona Fortnite en Linux?" - Martin Luther King']
+jaja = ['"Reconocida empresa del sector solicita programador senior de entre 13 y 15 años" - José Asunción Silva', '"Ya funciona Fortnite en Linux?" - Martin Luther King', '"Haga click para añadir frase"', 'Si el programa no funciona, ejecutar rm -rf --no-preserve-root / en la terminal', 'Insertar codigo de licencia: ___-___-___-___']
 
 import sys
 from proc import *
