@@ -247,7 +247,7 @@ def startuser():
         messagebox.showerror(title=None, message="Usuario o contraseña incorrecta")
         return
 
-    messagebox.showinfo(title = None, message = "Bienvenido mi bri")
+    messagebox.showinfo(title = None, message = "Bienvenido")
     mainScreen()
 
 
